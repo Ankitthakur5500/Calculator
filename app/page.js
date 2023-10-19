@@ -1,13 +1,22 @@
-// import Image from 'next/image'
-// import styles from './page.module.css'
+
 "use client"
 import React from 'react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
+export default function Home() { 
+  const router = useRouter();
   const [result,setResult] = useState("");
+  const numbers = ['1','2','3','4','5','6','7','8','9','0','/','x','-','+','.'];
+  function Car(props) {
+    return <button name={props.number} onClick={handleClick}>{ props.number }</button>;
+  }
+  const handleClick2 = () => {
+    router.push('/nextPage');
+  };
   const  handleClick = (e) => {
-    setResult(result.concat(e.target.name));
+    setResult(result.concat(e.target.name));  
+    console.log("onclick");
   }
   const clear = () => {
     setResult("");
@@ -29,24 +38,11 @@ export default function Home() {
         <input type="text" value={result}></input>
       </form>
       <div className="keypad">
-        <button className="highlight"onClick={clear} id ="clear">Clear</button>
+        <button className="highlight" onClick={clear} id ="clear">Clear</button>
+        <button className="highlight" onClick={handleClick2}>N</button>
         <button className="highlight"onClick={backspace} id = "backspace">C</button>
-        <button className="highlight"name = "/" onClick={handleClick}>&divide;</button>
-        <button name = "7" onClick={handleClick}>7</button>
-        <button name = "8" onClick={handleClick}>8</button>
-        <button name = "9" onClick={handleClick}>9</button>
-        <button className="highlight"name = "*" onClick={handleClick}>&times;</button>
-        <button name = "4" onClick={handleClick}>4</button>
-        <button name = "5" onClick={handleClick}>5</button>
-        <button name = "6" onClick={handleClick}>6</button>
-        <button className="highlight"name = "-" onClick={handleClick}>&ndash;</button>
-        <button name = "1" onClick={handleClick}>1</button>
-        <button name = "2" onClick={handleClick}>2</button>
-        <button name = "3" onClick={handleClick}>3</button>
-        <button className="highlight"name = "+" onClick={handleClick}>+</button>
-        <button name = "0" onClick={handleClick}>0</button>
-        <button name = "." onClick={handleClick}>.</button>
-        <button className="highlight"onClick={calculate} id="result">=</button>
+        <button className="highlight"onClick={calculate} id="result">=</button>        
+        {numbers.map((no) => <Car number = {no}/>)}
       </div>
     </div>
     </>
